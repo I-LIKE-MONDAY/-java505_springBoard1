@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <table class="table table-hover table-striped">
+                <colgroup>
+                    <col width="10%">
+                    <col width="*">
+                    <col width="15%">
+                    <col width="15%">
+                    <col width="15%">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th scope="col">글번호</th>
+                        <th>제목</th>
+                        <th>글쓴이</th>
+                        <th>등록일</th>
+                        <th>조회수</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${#lists.size(dataList)} > 0" th:each="list : ${dataList}">
+                        <td th:text="${list.idx}"></td>
+                        <td>
+                            <a href="/board/openBoardDetail.do?idx=" th:attrappend="href=${list.idx}" th:text="${list.title}"></a>
+                        </td>
+                        <td th:text="${list.userId}"></td>
+                        <td th:text="${list.createDt}"></td>
+                        <td th:text="${list.hitCnt}"></td>
+                    </tr>
+                    <tr th:unless="${#lists.size(dataList)} > 0">
+                        <td th:cols="5">조회된 결과가 없습니다.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
