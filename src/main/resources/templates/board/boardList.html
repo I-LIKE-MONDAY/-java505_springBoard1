@@ -11,6 +11,8 @@
 <div class="container">
     <div class="row">
         <div class="col-sm">
+<!--            dataList 값 확인 가능 -->
+            <p th:text="${dataList}"></p>
             <table class="table table-hover table-striped">
                 <colgroup>
                     <col width="10%">
@@ -29,20 +31,28 @@
                     </tr>
                 </thead>
                 <tbody>
+<!--                dataList : 변수명(Controller 에서 ModelAndView 객체에 저장한 변수병과 데이터)        -->
+<!--                each : ${dataList}에서 데이터를 끄집어내서 list 에 넣는작업 반복실행 (for:in) 문.    -->
                     <tr th:if="${#lists.size(dataList)} > 0" th:each="list : ${dataList}">
                         <td th:text="${list.idx}"></td>
                         <td>
-                            <a href="/board/openBoardDetail.do?idx=" th:attrappend="href=${list.idx}" th:text="${list.title}"></a>
+                            <a href="/board/openBoardDetail?idx=" th:attrappend="href=${list.idx}" th:text="${list.title}"></a>
                         </td>
                         <td th:text="${list.userId}"></td>
                         <td th:text="${list.createDt}"></td>
                         <td th:text="${list.hitCnt}"></td>
                     </tr>
+<!--                unless: if의 반대(else를 의미). if의 조건과 동일하게 써줘야 함 : false일 때 실행되는 부분 -->
                     <tr th:unless="${#lists.size(dataList)} > 0">
                         <td th:cols="5">조회된 결과가 없습니다.</td>
                     </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm d-flex justify-content-end">
+            <a href="/board/boardWrite" class="btn btn-outline-primary">글쓰기</a>
         </div>
     </div>
 </div>
