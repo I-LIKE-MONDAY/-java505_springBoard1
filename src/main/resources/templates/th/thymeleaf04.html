@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>타임리프 사용하기</title>
+    <link rel="stylesheet" href="/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
+    <script src="/js/jquery-3.6.1.js" th:src="@{/js/jquery-3.6.1.js}"></script>
+    <script src="/js/bootstrap.bundle.js" th:src="@{/js/bootstrap.bundle.js}"></script>
+</head>
+<body>
+<div class="container mt-5">
+    <div class="my-5 p-3 border">
+<!--        반복문 : each - ArrayList 처럼 반복 가능한 객체의 데이터를 전달받아 지역변수에 하나씩 꺼내어 담아 사용하는 방식  -->
+<!--                 자바의 [발전된 형태의 for 문]과 비슷한 사용법                                                           -->
+<!--                 each가 실행된 태그부터 반복 출력 됨                                                                     -->
+
+<!--        each 문 추가 옵션                                                                                                -->
+<!--        index : 0부터 시작하는 현재 index 번호 -->
+<!--        count : 1부터 시작하는 현재 index 번호 -->
+<!--        size : 해당 반복 객체의 총 크기 -->
+<!--        current : 현재 변수 값 -->
+<!--        even : 현재 번호가 짝수번호인지 확인, bool 타입 -->
+<!--        odd : 현재 번호가 홀수 번호인지 확인, bool 타입 -->
+<!--        first : 현재 번호가 시작 번호인지 확인, bool 타입 -->
+<!--        last : 현재 번호가 마지막 번호인지 확인, bool 타입-->
+
+<!--        사용법 -->
+<!--        th:each="지역변수명" : ${컨트롤러에서 전달한 변수명} -->
+<!--        th:each="지역변수명, 옵션" : ${컨트롤러에서 전달한 변수명} -->
+
+        <ul>
+            <li th:each="item : ${coffeeList}">
+                <p th:text="${item}"></p>
+            </li>
+        </ul>
+
+        <hr>
+
+        <ul>
+            <li th:each="item, i : ${coffeeList}">
+                <p th:text="|index : ${i.index}, value : ${item}|"></p>
+            </li>
+        </ul>
+        <hr>
+        <ul>
+            <li th:each="item, i : ${coffeeList}">
+                <p th:text="|index : ${i.index}, count : ${i.count}, value : ${item}|"></p>
+            </li>
+        </ul>
+        <hr>
+        <ul>
+            <li th:each="item, i : ${coffeeList}">
+                <p th:text="|index : ${i.index}, current : ${i.current}, value : ${item}|"></p>
+            </li>
+        </ul>
+        <hr>
+        <ul>
+            <li th:each="item, i : ${coffeeList}">
+                <p th:text="|index : ${i.index}, size : ${i.size}, value : ${item}|"></p>
+            </li>
+        </ul>
+        <hr>
+        <ul>
+            <li th:each="item, i : ${coffeeList}">
+                <p th:text="|index : ${i.index}, first : ${i.first}, even : ${i.even}, odd : ${i.odd}, last : ${i.last}, value : ${item}|"></p>
+            </li>
+        </ul>
+
+    </div>
+    <div class="my-4 p-3 border">
+<!--        if/unless : 타임리프는 전통적인 방식의 if-else 문이 없음(else if 문도 없음)    -->
+<!--        if문과 unless문을 사용하여 if ~ else 문을 구현  -->
+<!--        if : 지정된 조건의 결과가 true 일 경우 자신을 포함하여 아래의 문장을 실행   -->
+<!--        unless : 지정된 조건의 결과가 false 인 경우 자신을 포함하여 아래의 문장을 실행-->
+<!--        if/unless 를 같은 조건으로 함께 사용 시, if ~ else 문을 구현할 수 있음 -->
+        <ul>
+            <li th:if="${#lists.size(coffeeList)} > 0" th:each="item : ${coffeeList}">
+                <p th:text="${item}"></p>
+            </li>
+            <li th:unless="${#lists.size(coffeeList)} > 0">
+                <p th:text="'데이터 없음'"></p>
+            </li>
+        </ul>
+
+
+    </div>
+</div>
+</body>
+</html>
