@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>fragment 사용하기</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
+    <script src="/js/jquery-3.6.1.js" th:src="@{/js/jquery-3.6.1.js}"></script>
+    <script src="/js/bootstrap.bundle.js" th:src="@{/js/bootstrap.bundle.js}"></script>
+
+<!--    <script th:inline="javascript">-->
+<!--        // let thValue = ${obj}; : 이렇게 데이터 들고오기 불가능-->
+<!--        let thValue=-->
+<!--    </script>-->
+
+</head>
+<body>
+<!--
+    fragment : 타임리프를 사용하여 공통적으로 사용되는 페이지를 현재 페이지에 포함시킴
+        사용법 :
+            공통 페이지 : 외부에서 사용할 태그에 th:fragment="이름" 형태로 선언
+            사용 페이지 : th:insert, th:replace, th:include 를 사용하여 fragment로 선언된 페이지를 불러옴
+                ~{가져올 영역 파일 경로 :: fragment이름}
+                 insert : fragment로 지정된 영역을 현재 태그의 자식 태그로 추가
+                 replace : fragment로 지정된 영역을 현재 태그로 변경(교체)
+                 include : fragment로 지정된 영역의 자식 태그를 현재 태그의 자식 태그로 추가
+-->
+
+<!--
+        fragment 로 매개변수 전달하기
+        fragment 설정 시 - th:fragment="이름(변수명1, 변수명2, ...) 로 설정
+        사용 시 - th:inser="~{파일경로 :: 이름(데이터1, 데이터2, ...)}
+        해당 fragment에서 ${변수명} 으로 사용 가능
+-->
+<div th:insert="~{/layout/header :: frag-header}">
+
+</div>
+
+<main class="container my-5 p-5">
+    <div class="row">
+        <div class="col-sm text-center">
+            <h1>메인 컨텐츠 영역</h1>
+            <p>원래 thymeleaf05 파일에 존재하는 영역</p>
+        </div>
+    </div>
+</main>
+
+<div th:insert="~{/layout/footer :: frag-footer}">
+
+</div>
+<br><hr><br>
+
+<h3>insert 사용 시</h3>
+<div id="insert" th:insert="~{/layout/footer :: frag-footer}"></div>
+
+<h3>replace 사용 시</h3>
+<div id="replace" th:replace="~{/layout/footer :: frag-footer}"></div>
+
+<h3>include 사용 시</h3>
+<div id="include" th:include="~{/layout/footer :: frag-footer}"></div>
+
+<br><hr><br>
+
+<div th:insert="~{/layout/footer :: frag-foot01}"></div>
+<div th:insert="~{/layout/footer :: frag-foot02}"></div>
+
+<br><hr><br>
+
+<div th:insert="~{/layout/header :: frag-head01(10, 20)}"></div>
+
+</body>
+</html>

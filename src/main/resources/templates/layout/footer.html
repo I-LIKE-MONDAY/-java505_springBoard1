@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+<body>
+<footer class="container-fluid mt-5 p-5 border-top" th:fragment="frag-footer">
+    <p class="text-center">fragment로 가져온 footer 영역</p>
+    <p class="text-center lead text-muted">made by Gwak</p>
+</footer>
+<footer class="container-fluid bg-info m-3 p-5 rounded-5 bg-opacity-25" th:fragment="frag-foot01">
+    <p class="text-center">fragment로 가져온 frag-foot01 영역</p>
+</footer>
+<footer class="container-fluid bg-success m-3 p-5 rounded-5 bg-opacity-25" th:fragment="frag-foot02">
+    <p class="text-center">fragment로 가져온 frag-foot02 영역</p>
+</footer>
+</body>
+</html>
