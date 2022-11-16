@@ -21,11 +21,11 @@
 <body>
 <header class="container mt-2">
     <div class="bg-light rounded-3 p-4">
-        <h1 class="display-3">게시물 등록 페이지</h1>
+        <h1 class="display-3 text-center">게시물 등록 페이지</h1>
     </div>
 </header>
 <main class="container">
-    <form action="/board/insertBoard" method="post">
+    <form action="/board/insertBoard" method="post" enctype="multipart/form-data">
         <div class="row">
             <div class="col-sm-6 mx-auto">
                 <div class="form-floating my-3">
@@ -38,6 +38,10 @@
                 </div>
                 <div class="my-3">
                     <textarea class="form-control" name="contents" id="contents" rows="5" placeholder="내용을 입력하세요"></textarea>
+                </div>
+<!--                파일 업로드를 위해서 추가 -->
+                <div class="my-3">
+                    <input type="file" class="form-control" id="files" name="files" multiple>
                 </div>
                 <div class="row">
                     <div class="col-sm d-grid gap-3">

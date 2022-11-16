@@ -76,6 +76,13 @@
         <textarea class="form-control" rows="5" id="contents" name="contents" th:text="${board.contents}" placeholder="글내용"></textarea>
       </div>
     </div>
+
+<!--    파일 목록 출력하기 -->
+    <div class="row">
+      <div class="col-sm my-3">
+        <a class="btn btn-link" th:each="list : ${board.fileList}" th:text="|${list.originalFileName} (${list.fileSize}kb)|" th:href="@{/board/downloadBoardFile(idx=${list.idx}, boardIdx=${list.boardIdx})}"></a>
+      </div>
+    </div>
   </form>
   <div class="row">
     <div class="col-sm">
