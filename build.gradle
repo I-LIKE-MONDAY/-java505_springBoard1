@@ -35,6 +35,9 @@ dependencies {
 	// https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload
 	implementation 'commons-fileupload:commons-fileupload:1.4'
 
+	// https://mvnrepository.com/artifact/com.github.pagehelper/pagehelper-spring-boot-starter
+	implementation 'com.github.pagehelper:pagehelper-spring-boot-starter:1.4.5'
+
 }
 
 tasks.named('test') {
