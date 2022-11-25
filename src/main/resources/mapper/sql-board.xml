@@ -31,6 +31,12 @@
         WHERE idx  = #{idx}
         ]]>
     </select>
+
+    <select id="selectBoardListPage" resultType="com.bitc.board.dto.BoardDto">
+        <![CDATA[
+        SELECT * FROM t_board
+        ]]>
+    </select>
 <!--    sql 쿼리문 안에서 컬럼명이 각각 달라지는 이유                                                                                   -->
 <!--        1. DB에서 사용하는 명명법(스네이크 명명법)과 java에서 사용하는 명명법(카멜 명명법)이 다름                                   -->
 <!--        2. application.properties 를 통해서 카멜명명법을 사용한다고 설정 (mybatis.configuration.map-underscore-to-camel-case=true)  -->

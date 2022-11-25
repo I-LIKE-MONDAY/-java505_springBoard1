@@ -4,6 +4,8 @@ import com.bitc.board.common.FileUtils;
 import com.bitc.board.dto.BoardDto;
 import com.bitc.board.dto.BoardFileDto;
 import com.bitc.board.mapper.BoardMapper;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -32,6 +34,14 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    public Page<BoardDto> selectBoardList(int pageNo) throws Exception {
+//    startPage : 첫번째 매개변수로 화면에 출력할 페이지
+//                두번째 매개변수로 화면에 출력할 컨텐츠의 수 설정(한 페이지에 들어가는 행의 수)
+        PageHelper.startPage(pageNo, 5);
+        return boardMapper.selectBoardListPage();
+    }
+
+    @Override
     public BoardDto selectBoardDetail(int idx) throws Exception {
 //        조회수 증가
         boardMapper.updateHitCount(idx);
@@ -44,6 +54,8 @@ public class BoardServiceImpl implements BoardService {
 
         return board;
     }
+
+
 
     @Override
     public void insertBoard(BoardDto board, MultipartHttpServletRequest uploadFiles) throws Exception {

@@ -2,6 +2,7 @@ package com.bitc.board.mapper;
 
 import com.bitc.board.dto.BoardDto;
 import com.bitc.board.dto.BoardFileDto;
+import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -18,7 +19,10 @@ import java.util.List;
 public interface BoardMapper {
     List<BoardDto> selectBoardList() throws Exception; // boardDto타입으로 여러개가 넘어옴(List)
 
+    Page<BoardDto> selectBoardListPage() throws Exception;
+
     BoardDto selectBoardDetail(int idx) throws Exception;
+
 
     void insertBoard(BoardDto board) throws Exception;
 

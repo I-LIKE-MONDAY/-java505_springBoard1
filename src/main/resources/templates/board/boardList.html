@@ -33,21 +33,42 @@
                 <tbody>
 <!--                dataList : 변수명(Controller 에서 ModelAndView 객체에 저장한 변수병과 데이터)        -->
 <!--                each : ${dataList}에서 데이터를 끄집어내서 list 에 넣는작업 반복실행 (for:in) 문.    -->
-                    <tr th:if="${#lists.size(dataList)} > 0" th:each="list : ${dataList}">
+                    <tr th:if="${#lists.size(dataList.getList())} > 0" th:each="list : ${dataList.getList()}">
                         <td th:text="${list.idx}"></td>
                         <td>
-                            <a href="/board/openBoardDetail?idx=" th:attrappend="href=${list.idx}" th:text="${list.title}"></a>
+                            <a style="color: black" class="text-decoration-none" href="/board/openBoardDetail?idx=" th:attrappend="href=${list.idx}" th:text="${list.title}"></a>
                         </td>
                         <td th:text="${list.userId}"></td>
                         <td th:text="${list.createDt}"></td>
                         <td th:text="${list.hitCnt}"></td>
                     </tr>
 <!--                unless: if의 반대(else를 의미). if의 조건과 동일하게 써줘야 함 : false일 때 실행되는 부분 -->
-                    <tr th:unless="${#lists.size(dataList)} > 0">
+                    <tr th:unless="${#lists.size(dataList.getList())} > 0">
                         <td th:cols="5">조회된 결과가 없습니다.</td>
                     </tr>
                 </tbody>
             </table>
+            <nav>
+                <ul class="pagination justify-content-center">
+                    <!--                    이전 페이지 버튼 -->
+                    <li class="page-item" th:classappend="${dataList.getPrePage() == 0} ? 'disabled'">
+                        <!--                        타임리프에서 주소를 입력할 경우 @{} 형식을 사용
+                                                    /page 라는 주소를 입력하여 컨트롤러에 GET 방식으로 요청
+                                                    -> ()를 사용하여 매개변수를 추가, pageNum 라는 이름으로 매개변수 전달                   -->
+                        <a class="page-link" th:href="@{/board/openBoardList(pageNum=${dataList.getPrePage()})}">&laquo;</a>
+                    </li>
+
+                    <!--                    중앙에 있는 각 페이지 번호 -->
+                    <li class="page-item" th:each="page : ${#numbers.sequence(dataList.getNavigateFirstPage(), dataList.getNavigateLastPage())}" th:classappend="${page == dataList.getPageNum()} ? 'active'">
+                        <a class="page-link" th:text="${page}" th:href="@{/board/openBoardList(pageNum=${page})}"></a>
+                    </li>
+
+                    <!--                    다음 페이지 버튼 -->
+                    <li class="page-item" th:classappend="${dataList.getNextPage() == 0} ? 'disabled'">
+                        <a class="page-link" th:href="@{/board/openBoardList(pageNum=${dataList.getNextPage()})}">&raquo;</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
     <div class="row">

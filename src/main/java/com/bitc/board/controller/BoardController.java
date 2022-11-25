@@ -3,6 +3,7 @@ package com.bitc.board.controller;
 import com.bitc.board.dto.BoardDto;
 import com.bitc.board.dto.BoardFileDto;
 import com.bitc.board.service.BoardService;
+import com.github.pagehelper.PageInfo;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,10 +17,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.net.URLEncoder;
-import java.util.List;
 //         @Controller : 사용자가 웹브라우저를 통하여 어떠한 요청을 할 경우 해당 요청을 처리하기 위한 비즈니스 로직을 가지고 있는 어노테이션.
 //                       클래스에 해당 어노테이션을 사용하면 해당 클래스는 사용자 요청을 처리하기 위한 클래스라는 것을 스프링 프레임워크에 알림
-// 컨트롤러가 하는 일 : 1. 사용자가 서버에 요청한 주소를 기반으로 사용자가 전송한 데이터를 받음
+//    컨트롤러가 하는 일 : 1. 사용자가 서버에 요청한 주소를 기반으로 사용자가 전송한 데이터를 받음
 //                      2. 사용자에게 제공할 View 파일을 연동
 //                      3. 사용자에게 전송한 데이터를 바탕으로 서비스에게 내부 연산을 요청함
 @Controller
@@ -43,18 +43,22 @@ public class BoardController {
 
     // 게시물 목록 페이지
     @RequestMapping(value = "/board/openBoardList", method = RequestMethod.GET)
-    public ModelAndView openBoardList() throws Exception {
-        //html 파일이 있는 위치(resources-templates 는 스프링에서 고정이기 때문에 그 아래의 폴더만 써주면 됨)
+    public ModelAndView openBoardList(@RequestParam(required = false, defaultValue = "1") int pageNum) throws Exception {
+        // html 파일이 있는 위치(resources-templates 는 스프링에서 고정이기 때문에 그 아래의 폴더만 써주면 됨)
         ModelAndView mv = new ModelAndView("board/boardList");
 
         // 필요한 데이터 객체 실어주기
-        // 실제 데이터베이스에서 넘어온 데이터를 BoardDto타입으로 만들어진 dataList에 저장
-        List<BoardDto> dataList = boardService.selectBoardList();
+        // 실제 데이터베이스에서 넘어온 데이터를 BoardDto 타입으로 만들어진 dataList에 저장
+        // List<BoardDto> dataList = boardService.selectBoardList();
         // 실제 데이터를 addObject를 통해 밀어넣음(이름은 datatList 로(html에서 구별하기 위한 구분자), 실제 변수명은 dataList)
+        // mv.addObject("dataList", dataList);
+
+        PageInfo<BoardDto> dataList = new PageInfo<>(boardService.selectBoardList(pageNum), 3);
         mv.addObject("dataList", dataList);
 
         return mv; // html 파일의 데이터가 들어가면서 그것을 클라이언트에 보낸다 -> 웹 브라우저로 다시 뿌림
     }
+
 
     // 게시물 상세 보기
     //  @RequestParam : jsp의 request.getParameter()와 같은 기능을 하는 어노테이션, 클라이언트에서 서버로 전송된 데이터를 가져오는 어노테이션
